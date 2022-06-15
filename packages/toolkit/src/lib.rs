@@ -15,7 +15,6 @@ use std::panic;
 use wasm_bindgen::prelude::*;
 
 mod error;
-mod manifest;
 mod manifest_store;
 mod typescript;
 mod util;

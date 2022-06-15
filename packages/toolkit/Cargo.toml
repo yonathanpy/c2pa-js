@@ -8,7 +8,8 @@ version = "0.9.0"
 crate-type = ["cdylib"]
 
 [dependencies]
-console_error_panic_hook = "0.1.6"
+c2pa = {git = "https://github.com/contentauth/c2pa-rs.git", branch = "dkozma/ingredient-thumb-serialization", features=["serialize_thumbnails"]}
+console_error_panic_hook = "0.1.7"
 console_log = {version = "0.2", features = ["color"]}
 log = "0.4.14"
 js-sys = "0.3.56"
@@ -22,10 +23,6 @@ serde-transcode = "1.1.1"
 thiserror = "1.0.20"
 wasm-bindgen = {version = "0.2.79", features = ["serde-serialize"]}
 wasm-bindgen-futures = "0.4.29"
-
-[dependencies.c2pa_toolkit]
-git = "ssh://git@github.com/contentauth/c2pa-toolkit.git"
-rev = "b6212d7"
 
 [dependencies.web-sys]
 version = "0.3.56"
