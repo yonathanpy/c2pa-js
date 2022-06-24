@@ -24,8 +24,8 @@
     "build:release": "rushx build",
     "build:verbose": "rushx clean && wasm-pack --verbose build --out-name toolkit --release --target web && rimraf pkg/.gitignore pkg/package.json",
     "clean": "rimraf ./pkg",
-    "test": "wtr",
-    "lint": "echo \"@contentauth/detector\" no-op"
+    "test": "echo \"@contentauth/toolkit\" no-op",
+    "lint": "echo \"@contentauth/toolkit\" no-op"
   },
   "devDependencies": {
     "@contentauth/testing": "workspace:*",
