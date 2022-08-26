@@ -190,8 +190,7 @@ checksum = "c4872d67bab6358e59559027aa3b9157c53d9358c51423c17554809a8858e0f8"
 [[package]]
 name = "c2pa"
 version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1c73e98725f6c64dbe7225b81f1919bc57da7fe41d67458c4393386baf1c3f02"
+source = "git+https://github.com/contentauth/c2pa-rs?branch=gpeacock/remote_manifest_url_err#8395eb18a043554b400e5075ea9ace534b8aeab2"
 dependencies = [
  "atree",
  "base64",

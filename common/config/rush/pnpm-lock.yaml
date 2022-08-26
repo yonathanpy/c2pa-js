@@ -385,6 +385,7 @@ importers:
       '@web/test-runner-browserstack': ~0.5.0
       '@web/test-runner-core': ~0.10.26
       '@web/test-runner-puppeteer': ~0.10.5
+      debug: ~4.3.4
       deepdash-es: ~5.3.9
       jasmine-core: ~4.1.0
       nodemon: ~2.0.16
@@ -392,6 +393,8 @@ importers:
       rollup: ~2.70.2
       typescript: ~4.6.3
       web-test-runner-jasmine: ~0.0.1
+    dependencies:
+      debug: 4.3.4
     devDependencies:
       '@contentauth/testing': link:../../tools/testing
       '@rollup/plugin-replace': 4.0.0_rollup@2.70.2
