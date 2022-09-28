@@ -18,7 +18,7 @@ import {
 
 export type C2paSourceType = string | Blob | File | HTMLImageElement;
 
-interface SourceMetadata {
+export interface SourceMetadata {
   /**
    * The filename of the original asset, if it exists/can be derived
    */

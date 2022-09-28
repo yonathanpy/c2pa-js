@@ -23,7 +23,15 @@ type AllAssertions =
   | ManifestAssertion;
 
 export interface AssertionAccessor {
+  /**
+   * Raw assertion data as returned by the WASM binary
+   */
   data: Assertion[];
+
+  /**
+   * Convenience method that returns an array of all assertions matching a given label, sorted by their index value
+   * @param label - The assertion label to filter by, without an index (e.g. c2pa.actions, *not* c2pa.actions__1)
+   */
   get: <T extends AllAssertions['label']>(
     label: T,
   ) => (Extract<AllAssertions, { label: T }> | undefined)[];

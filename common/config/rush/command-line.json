@@ -58,6 +58,16 @@
     },
 
     {
+      "commandKind": "bulk",
+      "name": "extract-api",
+      "summary": "Run api-extractor on all applicable projects, outputting reports to common/api",
+      "ignoreMissingScript": true,
+      "enableParallelism": true,
+      "incremental": true,
+      "allowWarningsInSuccessfulBuild": true
+    },
+
+    {
       "name": "prettier",
       "commandKind": "global",
       "summary": "Used by the pre-commit Git hook. This command invokes Prettier to reformat staged changes.",

@@ -13,7 +13,7 @@ import { Manifest } from '../manifest';
 /**
  * Gets the producer of this manifest, derived from its `stds.schema-org.CreativeWork` assertion, if available
  *
- * @param manifest Manifest to derive data from
+ * @param manifest - Manifest to derive data from
  */
 export function selectProducer(manifest: Manifest): Author | null {
   const [cwAssertion] = manifest.assertions.get('stds.schema-org.CreativeWork');

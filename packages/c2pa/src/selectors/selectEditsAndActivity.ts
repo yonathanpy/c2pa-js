@@ -112,7 +112,7 @@ export interface TranslatedDictionaryCategory {
   description: string;
 }
 
-type IconVariant = 'light' | 'dark';
+export type IconVariant = 'light' | 'dark';
 
 export interface AdobeDictionary {
   categories: {
@@ -151,9 +151,9 @@ export interface EditCategory {
  * and a dictionary assertion, if available. If a dictionary is incuded, this function will initiate
  * an HTTP request to fetch the dictionary data.
  *
- * @param manifest Manifest to derive data from
- * @param locale BCP-47 locale code (e.g. `en-US`, `fr-FR`) to request localized strings, if available
- * @param iconVariant Requests icon variant (e.g. `light`, `dark`), if available
+ * @param manifest - Manifest to derive data from
+ * @param locale - BCP-47 locale code (e.g. `en-US`, `fr-FR`) to request localized strings, if available
+ * @param iconVariant - Requests icon variant (e.g. `light`, `dark`), if available
  * @returns
  */
 export async function selectEditsAndActivity(

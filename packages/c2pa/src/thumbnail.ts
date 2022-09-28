@@ -9,12 +9,13 @@
 
 import { Thumbnail as ToolkitThumbnail } from '@contentauth/toolkit';
 import { sha } from './lib/hash';
-import { Disposable } from './lib/types';
 export interface BlobUrlData {
   url: string;
 }
 
-type DisposableBlobUrl = Disposable<BlobUrlData>;
+export type DisposableBlobUrl = BlobUrlData & {
+  dispose: () => void;
+};
 
 export interface Thumbnail {
   blob?: Blob;

@@ -16,13 +16,19 @@ import { createManifest, Manifest } from './manifest';
 import debug from 'debug';
 
 export interface ManifestStore {
-  // Map of all manifests included in the manifest store
+  /**
+   * Map of all manifests included in the manifest store
+   */
   manifests: ManifestMap;
 
-  // The active manifest in the manifest store
+  /**
+   * The active manifest in the manifest store
+   */
   activeManifest: Manifest;
 
-  // List of validation errors
+  /**
+   * List of validation errors
+   */
   validationStatus: ValidationStatus[];
 }
 

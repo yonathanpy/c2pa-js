@@ -15,37 +15,59 @@ import { Manifest } from './manifest';
 import { createThumbnail, Thumbnail } from './thumbnail';
 
 export interface Ingredient {
-  // Human-readable title, generally source filename
+  /**
+   * Human-readable title, generally source filename
+   */
   title: string;
 
-  // MIME type of the asset associated with this ingredient
+  /**
+   * MIME type of the asset associated with this ingredient
+   */
   format: string;
 
-  // Document ID from `xmpMM:DocumentID` in XMP metadata
+  /**
+   * Document ID from `xmpMM:DocumentID` in XMP metadata
+   */
   documentId: string | null;
 
-  // Instance ID from `xmpMM:InstanceID` in XMP metadata
+  /**
+   * Instance ID from `xmpMM:InstanceID` in XMP metadata
+   */
   instanceId: string;
 
-  // URI from `dcterms:provenance` in XMP metadata
+  /**
+   * URI from `dcterms:provenance` in XMP metadata
+   */
   provenance: string | null;
 
-  // Optional hash of the asset to prevent duplicates
+  /**
+   * Optional hash of the asset to prevent duplicates
+   */
   hash: string | null;
 
-  // `true` if this ingredient has a 'parentOf' relationship, i.e. it is the parent ingredient of its manifest
+  /**
+   * `true` if this ingredient has a 'parentOf' relationship, i.e. it is the parent ingredient of its manifest
+   */
   isParent: boolean;
 
-  // Validation errors associated with this ingredient
+  /**
+   * Validation errors associated with this ingredient
+   */
   validationStatus: ValidationStatus[];
 
-  // The manifest contained within this ingredient, if applicable
+  /**
+   * The manifest contained within this ingredient, if applicable
+   */
   manifest: Manifest | null;
 
-  // Thumbnail accessor, if available
+  /**
+   * Thumbnail accessor, if available
+   */
   thumbnail: Thumbnail | null;
 
-  // Additional metadata as defined by the C2PA spec
+  /**
+   * Additional metadata as defined by the C2PA spec
+   */
   metadata: Metadata | null;
 }
 

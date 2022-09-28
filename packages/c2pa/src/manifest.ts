@@ -18,41 +18,65 @@ import { ManifestMap } from './manifestStore';
 import { createThumbnail, Thumbnail } from './thumbnail';
 
 export interface Manifest {
-  // Human-readable title, generally source filename
+  /**
+   *  Human-readable title, generally source filename
+   */
   title: string;
 
-  // MIME type of the asset associated with this manifest
+  /**
+   * MIME type of the asset associated with this manifest
+   */
   format: string;
 
-  // Optional prefix added to the generated manifest label
+  /**
+   * Optional prefix added to the generated manifest label
+   */
   vendor: string | null;
 
-  // User Agent string identifying the software/hardware/system that created this manifest
+  /**
+   * User Agent string identifying the software/hardware/system that created this manifest
+   */
   claimGenerator: string;
   claimGeneratorHints: Record<string, unknown> | null;
 
-  // Instance ID from `xmpMM:InstanceID` in XMP metadata.
+  /**
+   * Instance ID from `xmpMM:InstanceID` in XMP metadata.
+   */
   instanceId: string;
 
-  // Signature information (issuer, date) associated with this manifest
+  /**
+   * Signature information (issuer, date) associated with this manifest
+   */
   signatureInfo: SignatureInfo | null;
 
-  // List of Verifiable Credentials
+  /**
+   * List of Verifiable Credentials
+   */
   credentials: Credential[];
 
-  // List of ingredients included within this manifest
+  /**
+   * List of ingredients included within this manifest
+   */
   ingredients: Ingredient[];
 
-  // List of URIs referencing redacted assertions
+  /**
+   * List of URIs referencing redacted assertions
+   */
   redactions: string[];
 
-  // The manifest this manifest is an ingredient of, if applicable
+  /**
+   * The manifest this manifest is an ingredient of, if applicable
+   */
   parent: Manifest | null;
 
-  // Thumbnail accessor, if available
+  /**
+   * Thumbnail accessor, if available
+   */
   thumbnail: Thumbnail | null;
 
-  // Interface providing access to assertions contained within this manifest
+  /**
+   * Interface providing access to assertions contained within this manifest
+   */
   assertions: AssertionAccessor;
 }
 

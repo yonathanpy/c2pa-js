@@ -49,6 +49,9 @@ export interface C2paConfig {
   fetchRemoteManifests?: boolean;
 }
 
+/**
+ * Main interface for reading c2pa data contained within an asset.
+ */
 export interface C2pa {
   /**
    * Processes image data from a `Blob` as input
@@ -84,27 +87,47 @@ export interface C2pa {
    * @param element - DOM element of the image to process
    */
   read(element: HTMLImageElement): Promise<C2paReadResult>;
+
+  /**
+   * Process an image given a valid input. Supported types:
+   * - Blob
+   * - File
+   * - Image URL
+   * - HTML image element (`<img />`)
+   *
+   * @param input - Image to process
+   */
   read(input: C2paSourceType): Promise<C2paReadResult>;
 
   /**
    * Convenience function to process multiple images at once
    *
-   * @param inputs Array of inputs to pass to `processImage`
+   * @param inputs - Array of inputs to pass to `processImage`
    */
   readAll(inputs: C2paSourceType[]): Promise<C2paReadResult[]>;
 
+  /**
+   * Disposer function to clean up the underlying worker pool and any other disposable resources
+   */
   dispose: () => void;
 }
 
 export interface C2paReadResult {
+  /**
+   * Manifest store containing all c2pa metadata associated with the image
+   */
   manifestStore: ManifestStore | null;
+
+  /**
+   * Source asset provided to `c2pa.read()`
+   */
   source: Source;
 }
 
 /**
  * Creates a c2pa object that can be used to read c2pa metadata from an image.
  *
- * @param config Configuration options for the created c2pa object
+ * @param config - Configuration options for the created c2pa object
  */
 export async function createC2pa(config: C2paConfig): Promise<C2pa> {
   let jobCounter = 0;
@@ -177,7 +200,7 @@ export async function createC2pa(config: C2paConfig): Promise<C2pa> {
  * Generates a URL that pre-loads the `assetUrl` into the Content Authenticity Verify site
  * for deeper inspection by users.
  *
- * @param assetUrl The URL of the asset you want to view in Verify
+ * @param assetUrl - The URL of the asset you want to view in Verify
  */
 export function generateVerifyUrl(assetUrl: string) {
   const url = new URL('https://verify.contentauthenticity.org/inspect');
@@ -188,11 +211,11 @@ export function generateVerifyUrl(assetUrl: string) {
 /**
  * Handles errors from the toolkit and fetches/processes remote manifests, if applicable.
  *
- * @param source Source object representing the asset
- * @param error Error from toolkit
- * @param pool Worker pool to use when processing remote manifests (triggered by Toolkit(RemoteManifestUrl) error)
- * @param wasm WASM module to use when processing remote manifests
- * @param fetchRemote Controls remote-fetching behavior
+ * @param source - Source object representing the asset
+ * @param error - Error from toolkit
+ * @param pool - Worker pool to use when processing remote manifests (triggered by Toolkit(RemoteManifestUrl) error)
+ * @param wasm - WASM module to use when processing remote manifests
+ * @param fetchRemote - Controls remote-fetching behavior
  * @returns A manifestStore, if applicable, null otherwise or a re-thrown error.
  */
 function handleErrors(

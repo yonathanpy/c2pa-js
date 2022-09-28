@@ -12,9 +12,9 @@ import { Manifest } from '../manifest';
 
 /**
  * Gets any social accounts associated with the producer of this manifest, derived from its
- * stds.schema-org.CreativeWork` assertion, if available
+ * `stds.schema-org.CreativeWork` assertion, if available
  *
- * @param manifest Manifest to derive data from
+ * @param manifest - Manifest to derive data from
  */
 export function selectSocialAccounts(manifest: Manifest): Author[] | null {
   const [cwAssertion] = manifest.assertions.get('stds.schema-org.CreativeWork');

@@ -11,7 +11,6 @@ import { Manifest } from './manifest';
 import { selectProducer } from './selectors/selectProducer';
 import { selectEditsAndActivity } from './selectors/selectEditsAndActivity';
 import { selectSocialAccounts } from './selectors/selectSocialAccounts';
-import { Disposable } from './lib/types';
 
 declare module './assertions' {
   interface ExtendedAssertions {
@@ -21,6 +20,9 @@ declare module './assertions' {
   }
 }
 
+/**
+ * Manifest representation suitable for use with c2pa-wc.
+ */
 export interface L2Manifest {
   ingredients: L2Ingredient[];
   format: string;
@@ -34,48 +36,51 @@ export interface L2Manifest {
   isBeta: boolean;
 }
 
-interface L2Ingredient {
+export interface L2Ingredient {
   title: string;
   format: string;
   thumbnail: string | null;
 }
 
-interface L2Signature {
+export interface L2Signature {
   issuer: string | null;
   isoDateString: string | null;
 }
 
-interface L2ClaimGenerator {
+export interface L2ClaimGenerator {
   value: string;
   product: string;
 }
 
-interface L2Producer {
+export interface L2Producer {
   '@type': string;
   name: string;
   identifier: string;
 }
 
-interface L2SocialAccount {
+export interface L2SocialAccount {
   '@type': string;
   '@id': string | undefined;
   name: string;
   identifier: string;
 }
 
-interface L2EditsAndActivity {
+export interface L2EditsAndActivity {
   id: string;
   icon: string | null;
   label: string;
   description: string;
 }
 
-type DisposableL2Manifest = Disposable<{ manifest: L2Manifest }>;
+export type DisposableL2Manifest = {
+  manifest: L2Manifest;
+  dispose: () => void;
+};
 
 /**
  * Creates a manifest representation suitable for use with c2pa-wc.
  *
- * @param manifest c2pa manifest object
+ * @param manifest - c2pa manifest object
  */
 export async function createL2Manifest(
   manifest: Manifest,
