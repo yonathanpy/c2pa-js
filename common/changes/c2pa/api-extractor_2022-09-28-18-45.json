@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "c2pa",
+      "comment": "Additional documentation and exported types",
+      "type": "patch"
+    }
+  ],
+  "packageName": "c2pa"
+}
