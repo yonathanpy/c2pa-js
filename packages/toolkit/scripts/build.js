@@ -57,13 +57,10 @@ async function buildWasm(opts) {
  * @param {*} opts Options for this script invocation
  */
 async function buildTypes(opts) {
+  const tscPath = join(opts.packageDir, './node_modules/.bin/tsc');
   const tsconfigPath = join(opts.packageDir, './tsconfig.json');
 
-  await runProcess(
-    './node_modules/.bin/tsc',
-    `--project ${tsconfigPath}`,
-    opts,
-  );
+  await runProcess(tscPath, `--project ${tsconfigPath}`, opts);
 }
 
 /**
