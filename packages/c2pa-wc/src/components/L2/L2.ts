@@ -7,6 +7,7 @@
  * it.
  */
 
+import { L2ManifestStore } from 'c2pa';
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import '../../../assets/svg/color/info.svg';
@@ -34,31 +35,34 @@ export class L2 extends LitElement {
     return [
       defaultStyles,
       css`
-        :host {
-          display: inline-block;
-          width: var(--cai-indicator-size, 24px);
-          height: var(--cai-indicator-size, 24px);
-        }
-        .icon {
-          --cai-icon-width: var(--cai-indicator-size, 24px);
-          --cai-icon-height: var(--cai-indicator-size, 24px);
+        #popover {
+          position: absolute;
+          top: 10px;
+          right: 10px;
         }
       `,
     ];
   }
 
+  manifestStore: L2ManifestStore | undefined;
+
+  viewMoreURL: string | undefined;
+
   render() {
+    if (!this.manifestStore) {
+      return null;
+    }
     return html` <div class="wrapper">
       <cai-popover
+        id="popover"
         interactive
         class="theme-spectrum"
         placement="left-start"
-        style:z-index="{placement}"
       >
         <cai-indicator slot="trigger" />
         <cai-manifest-summary
-          use:setManifest="{manifest}"
-          view-more-url="{viewMoreURL}"
+          .manifestStore=${this.manifestStore}
+          .viewMoreUrl=${this.viewMoreURL}
           slot="content"
         />
       </cai-popover>
