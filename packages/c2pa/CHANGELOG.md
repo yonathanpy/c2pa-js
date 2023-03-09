@@ -1,6 +1,17 @@
 # Change Log - c2pa
 
-This log was last generated on Wed, 08 Mar 2023 01:47:53 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Mar 2023 23:51:21 GMT and should not be manually modified.
+
+## 0.14.0
+Thu, 09 Mar 2023 23:51:21 GMT
+
+### Minor changes
+
+- Replace workerpool implementation to remove insecure eval statements
+
+### Patches
+
+- Added new c2pa icons and mapped them to their ids
 
 ## 0.13.4
 Wed, 08 Mar 2023 01:47:53 GMT

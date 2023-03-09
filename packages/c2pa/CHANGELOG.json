@@ -2,6 +2,23 @@
   "name": "c2pa",
   "entries": [
     {
+      "version": "0.14.0",
+      "tag": "c2pa_v0.14.0",
+      "date": "Thu, 09 Mar 2023 23:51:21 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Added new c2pa icons and mapped them to their ids"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Replace workerpool implementation to remove insecure eval statements"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.4",
       "tag": "c2pa_v0.13.4",
       "date": "Wed, 08 Mar 2023 01:47:53 GMT",
