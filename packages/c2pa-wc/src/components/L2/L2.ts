@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Adobe
+ * Copyright 2023 Adobe
  * All Rights Reserved.
  *
  * NOTICE: Adobe permits you to use, modify, and distribute this file in
@@ -31,19 +31,18 @@ export class L2 extends LitElement {
    * Image source - if set to undefined/null it will show a broken image icon
    */
   @property({ type: String })
-  static get styles() {
-    return [
-      defaultStyles,
-      css`
-        #popover {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-        }
-      `,
-    ];
-  }
-
+  // static get styles() {
+  //   return [
+  //     defaultStyles,
+  //     css`
+  //       // #popover {
+  //       //   position: absolute;
+  //       //   top: 10px;
+  //       //   right: 10px;
+  //       // }
+  //     `,
+  //   ];
+  // }
   manifestStore: L2ManifestStore | undefined;
 
   viewMoreURL: string | undefined;
@@ -52,7 +51,8 @@ export class L2 extends LitElement {
     if (!this.manifestStore) {
       return null;
     }
-    return html` <div class="wrapper">
+
+    return html`
       <cai-popover
         id="popover"
         interactive
@@ -66,6 +66,6 @@ export class L2 extends LitElement {
           slot="content"
         />
       </cai-popover>
-    </div>`;
+    `;
   }
 }
