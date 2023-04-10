@@ -58,8 +58,9 @@ export class L2 extends LitElement {
         interactive
         class="theme-spectrum"
         placement="left-start"
+        tab
       >
-        <cai-indicator slot="trigger"></cai-indicator>
+        <button slot="trigger"><cai-indicator></cai-indicator></button>
         <cai-manifest-summary
           tabindex="0"
           .manifestStore=${this.manifestStore}
