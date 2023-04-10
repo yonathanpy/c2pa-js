@@ -30,19 +30,19 @@ export class L2 extends LitElement {
   /**
    * Image source - if set to undefined/null it will show a broken image icon
    */
-  @property({ type: String })
-  // static get styles() {
-  //   return [
-  //     defaultStyles,
-  //     css`
-  //       // #popover {
-  //       //   position: absolute;
-  //       //   top: 10px;
-  //       //   right: 10px;
-  //       // }
-  //     `,
-  //   ];
-  // }
+  static get styles() {
+    return [
+      defaultStyles,
+      css`
+        .popover {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+        }
+      `,
+    ];
+  }
+
   manifestStore: L2ManifestStore | undefined;
 
   viewMoreURL: string | undefined;
@@ -51,20 +51,22 @@ export class L2 extends LitElement {
     if (!this.manifestStore) {
       return null;
     }
-
+    console.log('this.manifeststore', this.manifestStore);
     return html`
       <cai-popover
-        id="popover"
+        class="popover"
         interactive
         class="theme-spectrum"
         placement="left-start"
       >
-        <cai-indicator slot="trigger" />
+        <cai-indicator slot="trigger"></cai-indicator>
         <cai-manifest-summary
+          tabindex="0"
           .manifestStore=${this.manifestStore}
           .viewMoreUrl=${this.viewMoreURL}
           slot="content"
-        />
+        >
+        </cai-manifest-summary>
       </cai-popover>
     `;
   }
