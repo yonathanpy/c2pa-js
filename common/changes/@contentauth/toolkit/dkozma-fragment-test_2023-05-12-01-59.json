@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@contentauth/toolkit",
+      "comment": "Brought in bmff_v2 branch",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@contentauth/toolkit"
+}
