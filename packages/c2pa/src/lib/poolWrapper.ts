@@ -40,6 +40,8 @@ export async function createPoolWrapper(
   const pool: Worker = {
     compileWasm: async (...args) => workerPool.execute('compileWasm', args),
     getReport: async (...args) => workerPool.execute('getReport', args),
+    getFragmentReport: async (...args) =>
+      workerPool.execute('getFragmentReport', args),
     getReportFromAssetAndManifestBuffer: async (...args) =>
       workerPool.execute('getReportFromAssetAndManifestBuffer', args),
     scanInput: async (...args) => workerPool.execute('scanInput', args),

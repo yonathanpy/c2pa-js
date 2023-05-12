@@ -12,10 +12,10 @@ import debug from 'debug';
 import { ensureCompatibility } from './lib/browser';
 import { Downloader, DownloaderOptions } from './lib/downloader';
 import { WorkerPoolConfig } from './lib/pool/workerPool';
-import { createPoolWrapper, SdkWorkerPool } from './lib/poolWrapper';
+import { SdkWorkerPool, createPoolWrapper } from './lib/poolWrapper';
 import { fetchWasm } from './lib/wasm';
-import { createManifestStore, ManifestStore } from './manifestStore';
-import { C2paSourceType, createSource, Source } from './source';
+import { ManifestStore, createManifestStore } from './manifestStore';
+import { C2paSourceType, Source, createSource } from './source';
 
 const dbg = debug('c2pa');
 const dbgTask = debug('c2pa:task');
@@ -98,6 +98,14 @@ export interface C2pa {
    * @param input - Image to process
    */
   read(input: C2paSourceType): Promise<C2paReadResult>;
+
+  /**
+   * Process a fragmented mp4 video
+   *
+   * @param init - Initial data
+   * @param fragment - Fragment data
+   */
+  readFragment(init: Blob, fragment: ArrayBuffer): Promise<C2paReadResult>;
 
   /**
    * Convenience function to process multiple images at once
@@ -190,11 +198,50 @@ export async function createC2pa(config: C2paConfig): Promise<C2pa> {
     }
   };
 
+  const readFragment: C2pa['readFragment'] = async (init, fragment) => {
+    const jobId = ++jobCounter;
+
+    dbgTask('[%s] Reading from init and fragment', jobId, init, fragment);
+
+    const source = await createSource(downloader, init);
+
+    try {
+      const initBuf = await init.arrayBuffer();
+      const result = await pool.getFragmentReport(
+        wasm,
+        initBuf,
+        fragment,
+        init.type,
+      );
+
+      dbgTask('[%s] Received worker result', jobId, result);
+
+      return {
+        manifestStore: createManifestStore(result),
+        source,
+      };
+    } catch (err: any) {
+      const manifestStore = await handleErrors(
+        source,
+        err,
+        pool,
+        wasm,
+        config.fetchRemoteManifests,
+      );
+
+      return {
+        manifestStore,
+        source,
+      };
+    }
+  };
+
   const readAll: C2pa['readAll'] = async (inputs) =>
     Promise.all(inputs.map((input) => read(input)));
 
   return {
     read,
+    readFragment,
     readAll,
     dispose: () => pool.dispose(),
   };

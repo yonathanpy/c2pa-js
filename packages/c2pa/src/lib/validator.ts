@@ -24,6 +24,7 @@ export class Validator {
     'image/jpeg',
     'image/png',
     'application/x-c2pa-manifest-store',
+    'video/mp4',
   ];
 
   static readonly DEFAULT_DETECTION_LENGTH = 65535;

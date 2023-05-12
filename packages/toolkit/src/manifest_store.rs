@@ -13,6 +13,16 @@ pub async fn get_manifest_store_data(data: &[u8], mime_type: &str) -> Result<Man
         .map_err(Error::from)
 }
 
+pub async fn get_manifest_store_data_from_fragment(
+    init_bytes: &[u8],
+    fragment_bytes: &[u8],
+    mime_type: &str,
+) -> Result<ManifestStore> {
+    ManifestStore::from_fragment_bytes_async(mime_type, init_bytes, fragment_bytes, true)
+        .await
+        .map_err(Error::from)
+}
+
 pub async fn get_manifest_store_data_from_manifest_and_asset_bytes(
     manifest_bytes: &[u8],
     asset_bytes: &[u8],

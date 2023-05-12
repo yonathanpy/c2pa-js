@@ -14,10 +14,11 @@ import {
   scan_array_buffer,
 } from '@contentauth/detector';
 import {
-  default as initToolkit,
-  getManifestStoreFromArrayBuffer,
-  getManifestStoreFromManifestAndAsset,
   ManifestStore,
+  getManifestStoreFromArrayBuffer,
+  getManifestStoreFromFragment,
+  getManifestStoreFromManifestAndAsset,
+  default as initToolkit,
 } from '@contentauth/toolkit';
 
 export interface IScanResult {
@@ -36,6 +37,15 @@ const worker = {
   ): Promise<ManifestStore> {
     await initToolkit(wasm);
     return getManifestStoreFromArrayBuffer(buffer, type);
+  },
+  async getFragmentReport(
+    wasm: WebAssembly.Module,
+    init: ArrayBuffer,
+    fragment: ArrayBuffer,
+    type: string,
+  ): Promise<ManifestStore> {
+    await initToolkit(wasm);
+    return getManifestStoreFromFragment(init, fragment, type);
   },
   async getReportFromAssetAndManifestBuffer(
     wasm: WebAssembly.Module,
