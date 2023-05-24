@@ -21,9 +21,12 @@ const dbg = debug('c2pa:Validator');
  */
 export class Validator {
   static readonly VALID_MIME_TYPES = [
+    'application/x-c2pa-manifest-store',
+    'audio/mp4',
     'image/jpeg',
     'image/png',
-    'application/x-c2pa-manifest-store',
+    'image/webp',
+    'video/mp4',
   ];
 
   static readonly DEFAULT_DETECTION_LENGTH = 65535;
