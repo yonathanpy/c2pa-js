@@ -221,8 +221,8 @@ checksum = "89b2fd2a0dcf38d7971e2194b6b6eebab45ae01067456a7fd93d5547a61b70be"
 
 [[package]]
 name = "c2pa"
-version = "0.21.0"
-source = "git+https://github.com/contentauth/c2pa-rs?branch=bmff_v2#3a60cabf3ee3ba985d6f9b070befdeb4fdb6f165"
+version = "0.22.0"
+source = "git+https://github.com/contentauth/c2pa-rs?branch=main#f7d0d145748c6b6ab45691ebe0464a0618a6f4c4"
 dependencies = [
  "asn1-rs",
  "async-trait",

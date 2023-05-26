@@ -8,7 +8,7 @@ version = "0.18.1-1"
 crate-type = ["cdylib"]
 
 [dependencies]
-c2pa = { git = "https://github.com/contentauth/c2pa-rs", branch = "bmff_v2", features = [
+c2pa = { git = "https://github.com/contentauth/c2pa-rs", branch = "main", features = [
 	"serialize_thumbnails",
 ] }
 console_error_panic_hook = "0.1.7"
