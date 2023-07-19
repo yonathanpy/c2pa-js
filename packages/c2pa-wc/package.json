@@ -60,7 +60,7 @@
     "@rollup/plugin-typescript": "~8.3.4",
     "@rollup/pluginutils": "~4.2.1",
     "@rushstack/eslint-config": "~2.6.2",
-    "@rushstack/heft": "~0.47.11",
+    "@rushstack/heft": "0.49.4",
     "@rushstack/heft-storybook-plugin": "~0.1.99",
     "@storybook/addon-actions": "^6.5.16",
     "@storybook/addon-backgrounds": "^6.5.16",
@@ -103,7 +103,7 @@
     "storybook": "~6.5.16",
     "svgo": "^2.8.0",
     "tslib": "~2.4.1",
-    "typescript": "~4.6.4",
+    "typescript": "4.7.4",
     "vite": "^3.2.7",
     "web-test-runner-jasmine": "~0.0.5"
   }

@@ -81,7 +81,7 @@
     "rollup-plugin-copy": "~3.4.0",
     "rollup-plugin-terser": "~7.0.2",
     "tslib": "~2.4.1",
-    "typescript": "~4.6.4",
+    "typescript": "4.7.4",
     "web-test-runner-jasmine": "~0.0.5"
   }
 }
