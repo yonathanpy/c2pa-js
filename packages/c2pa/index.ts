@@ -22,7 +22,6 @@ export {
   generateVerifyUrl,
 } from './src/c2pa';
 export {
-  createL2ManifestStore,
   DisposableL2ManifestStore,
   ErrorStatus,
   L2ClaimGenerator,
@@ -32,17 +31,23 @@ export {
   L2Producer,
   L2Signature,
   L2SocialAccount,
+  createL2ManifestStore,
 } from './src/createL2ManifestStore';
 export { Ingredient } from './src/ingredient';
 export { DownloaderOptions } from './src/lib/downloader';
 export { Manifest } from './src/manifest';
 export { ManifestMap, ManifestStore } from './src/manifestStore';
 export {
-  getC2paCategorizedActions,
   IconVariant,
-  selectEditsAndActivity,
   TranslatedDictionaryCategory,
+  getC2paCategorizedActions,
+  selectEditsAndActivity,
 } from './src/selectors/selectEditsAndActivity';
+export {
+  parseGenerator,
+  selectFormattedGenerator,
+} from './src/selectors/selectFormattedGenerator';
+export { selectGenerativeInfo } from './src/selectors/selectGenerativeInfo';
 export { selectProducer } from './src/selectors/selectProducer';
 export { selectSocialAccounts } from './src/selectors/selectSocialAccounts';
 export { C2paSourceType, Source, SourceMetadata } from './src/source';

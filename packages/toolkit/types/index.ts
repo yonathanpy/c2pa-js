@@ -88,7 +88,7 @@ export interface Assertion<T = string, U = unknown> {
 export type C2paActionsAssertion = Assertion<
   'c2pa.actions',
   {
-    actions: Action[];
+    actions: ActionV1[];
   }
 >;
 
@@ -118,9 +118,13 @@ export type ManifestAssertion =
   | C2paHashDataAssertion
   | CreativeWorkAssertion;
 
-export interface Action {
+export interface ActionV1 {
   action: string;
-  parameters: Parameters;
+  softwareAgent?: string;
+  changed?: string[];
+  instanceId?: string;
+  parameters?: Parameters;
+  digitalSourceType?: string;
 }
 
 export interface Parameters {

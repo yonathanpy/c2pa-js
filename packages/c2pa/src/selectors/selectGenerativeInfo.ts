@@ -7,7 +7,15 @@
  * it.
  */
 
+import type { ManifestAssertion } from '@contentauth/toolkit';
 import type { Manifest } from '../manifest';
+
+const genAiDigitalSourceTypes = [
+  'http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+  'https://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+  'http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia',
+  'https://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia',
+];
 
 declare module '../assertions' {
   interface ExtendedAssertions {
@@ -20,31 +28,27 @@ declare module '../assertions' {
 }
 
 export interface GenerativeInfo {
-  modelName: string;
-  modelVersion: string;
-  prompt?: string;
+  assertion: ManifestAssertion;
 }
 
 /**
  * Gets any generative AI information from the manifest.
  *
- * **Note:** The current setup is temporary and will be replaced/combined with a standardized
- * selector that is in the C2PA spec.
- *
  * @param manifest - Manifest to derive data from
  */
-export function selectGenerativeInfo(
-  manifest: Manifest,
-): GenerativeInfo | null {
-  const [genAiAssertion] = manifest.assertions.get('com.adobe.generative-ai');
-
-  if (!genAiAssertion) {
-    return null;
-  }
-
-  return {
-    modelName: genAiAssertion.data.description,
-    modelVersion: genAiAssertion.data.version,
-    prompt: genAiAssertion.data.prompt,
-  };
+export function selectGenerativeInfo(manifest: Manifest): GenerativeInfo[] {
+  const genAiAssertions = manifest.assertions.data.filter(
+    (assertion: ManifestAssertion) => {
+      return (
+        // Check for legacy assertion
+        // @ts-ignore FIXME: Update extended assertions: https://github.com/contentauth/c2pa-js/issues/109
+        assertion.label === 'com.adobe.generative-ai' ||
+        // Check for actions v1 assertion
+        (assertion.label === 'c2pa.actions' &&
+          assertion.data.actions.some((action: any) =>
+            genAiDigitalSourceTypes.includes(action.digitalSourceType),
+          ))
+      );
+    },
+  );
 }
