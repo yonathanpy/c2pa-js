@@ -7,7 +7,12 @@
  * it.
  */
 
-import type { ManifestAssertion } from '@contentauth/toolkit';
+import type {
+  Assertion,
+  C2paActionsAssertion,
+  ManifestAssertion,
+} from '@contentauth/toolkit';
+import endsWith from 'lodash/endsWith';
 import type { Manifest } from '../manifest';
 
 const genAiDigitalSourceTypes = [
@@ -17,18 +22,27 @@ const genAiDigitalSourceTypes = [
   'https://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia',
 ];
 
-declare module '../assertions' {
-  interface ExtendedAssertions {
-    'com.adobe.generative-ai': {
-      description: string;
-      version: string;
-      prompt?: string;
-    };
+export type LegacyAssertion = Assertion<
+  'com.adobe.generative-ai',
+  {
+    description: string;
+    version: string;
+    prompt?: string;
   }
-}
+>;
+
+export type GenAiAssertion = ManifestAssertion | LegacyAssertion;
 
 export interface GenerativeInfo {
-  assertion: ManifestAssertion;
+  assertion: GenAiAssertion;
+  type:
+    | 'legacy'
+    | 'trainedAlgorithmicMedia'
+    | 'compositeWithTrainedAlgorithmicMedia';
+  softwareAgent: {
+    raw: string;
+    formatted: string;
+  };
 }
 
 /**
@@ -37,11 +51,10 @@ export interface GenerativeInfo {
  * @param manifest - Manifest to derive data from
  */
 export function selectGenerativeInfo(manifest: Manifest): GenerativeInfo[] {
-  const genAiAssertions = manifest.assertions.data.filter(
-    (assertion: ManifestAssertion) => {
+  return manifest.assertions.data
+    .filter((assertion: GenAiAssertion) => {
       return (
         // Check for legacy assertion
-        // @ts-ignore FIXME: Update extended assertions: https://github.com/contentauth/c2pa-js/issues/109
         assertion.label === 'com.adobe.generative-ai' ||
         // Check for actions v1 assertion
         (assertion.label === 'c2pa.actions' &&
@@ -49,6 +62,29 @@ export function selectGenerativeInfo(manifest: Manifest): GenerativeInfo[] {
             genAiDigitalSourceTypes.includes(action.digitalSourceType),
           ))
       );
-    },
-  );
+    })
+    .map((assertion: GenAiAssertion) => {
+      if (assertion.label === 'com.adobe.generative-ai') {
+        const { description, version } = (assertion as LegacyAssertion).data;
+        const softwareAgent = [description, version]
+          .map((x) => x.trim())
+          .join(' ');
+        return {
+          assertion,
+          type: 'legacy',
+          softwareAgent: {
+            raw: softwareAgent,
+            formatted: softwareAgent,
+          },
+        };
+      }
+
+      // Not generative AI, this is an Actions V1 assertion
+      const { actions } = (assertion as C2paActionsAssertion).data;
+      const genAiActions = actions.filter((action: any) =>
+        genAiDigitalSourceTypes.includes(action.digitalSourceType),
+      );
+      console.log('genAiActions', genAiActions);
+      // const type =
+    });
 }
