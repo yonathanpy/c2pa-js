@@ -1,5 +1,12 @@
-import type { ManifestAssertion } from '@contentauth/toolkit';
+import type {
+  Action,
+  Assertion,
+  C2paActionsAssertion,
+  ManifestAssertion,
+} from '@contentauth/toolkit';
 import { C2pa, createC2pa, selectGenerativeInfo } from '../../';
+import { GenerativeInfo } from '../../dist/src/selectors/selectGenerativeInfo';
+import { genFillResults } from './genFillResult';
 
 interface TestContext {
   c2pa: C2pa;
@@ -19,26 +26,54 @@ describe('selectGenerativeInfo', function () {
         './node_modules/@contentauth/testing/fixtures/images/gen-fill.jpg',
       );
       const manifest = result.manifestStore?.activeManifest;
-      console.log(
-        'manifest',
-        manifest?.assertions.data.find((x) => x.label === 'c2pa.actions')?.data,
-      );
       expect(manifest).not.toBeNull();
       if (manifest) {
         const genAssertions = selectGenerativeInfo(manifest);
         console.log('genAssertions', genAssertions);
-        // expect(genAssertions.length).toEqual(1);
-        // expect(genAssertions[0]?.manifest).toEqual(
-        //   'adobe:urn:uuid:c5a3bba2-634f-4ff5-959b-680c586994d2',
-        // );
-        // expect(genAssertions[0]?.assertion).toMatchObject(
-        //   manifest?.assertions.data.find(
-        //     (x: ManifestAssertion) => x.label === 'c2pa.actions',
-        //   ),
-        // );
+        expect(genAssertions).toEqual([
+          {
+            assertion: { label: 'c2pa.actions', data: jasmine.any(Object) },
+            action: {
+              action: 'c2pa.placed',
+              digitalSourceType:
+                'http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+              parameters: jasmine.any(Object),
+              softwareAgent: 'Adobe Firefly',
+            },
+            type: 'trainedAlgorithmicMedia',
+            softwareAgent: 'Adobe Firefly',
+          },
+          {
+            assertion: { label: 'c2pa.actions', data: jasmine.any(Object) },
+            action: {
+              action: 'c2pa.placed',
+              digitalSourceType:
+                'http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+              parameters: jasmine.any(Object),
+              softwareAgent: 'Adobe Firefly',
+            },
+            type: 'trainedAlgorithmicMedia',
+            softwareAgent: 'Adobe Firefly',
+          },
+          {
+            assertion: {
+              label: 'c2pa.actions',
+              data: jasmine.any(Object),
+            },
+            action: {
+              action: 'c2pa.placed',
+              digitalSourceType:
+                'http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+              parameters: jasmine.any(Object),
+              softwareAgent: 'Adobe Firefly',
+            },
+            type: 'trainedAlgorithmicMedia',
+            softwareAgent: 'Adobe Firefly',
+          },
+        ]);
       }
     });
-
+    //use toEuqal
     // test('should detect if a file has a gen AI assertion using v1 actions (trained)', async () => {
     //   const asset: FileAsset = {
     //     path: resolve('tests/fixtures/gen-fill'),

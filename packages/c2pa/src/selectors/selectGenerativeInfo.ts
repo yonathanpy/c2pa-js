@@ -8,11 +8,11 @@
  */
 
 import type {
+  Action,
   Assertion,
   C2paActionsAssertion,
   ManifestAssertion,
 } from '@contentauth/toolkit';
-import endsWith from 'lodash/endsWith';
 import type { Manifest } from '../manifest';
 
 const genAiDigitalSourceTypes = [
@@ -21,6 +21,10 @@ const genAiDigitalSourceTypes = [
   'http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia',
   'https://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia',
 ];
+
+function formatGenAiDigitalSourceTypes(type: string | undefined) {
+  return type?.substring(type.lastIndexOf('/') + 1);
+}
 
 export type LegacyAssertion = Assertion<
   'com.adobe.generative-ai',
@@ -35,14 +39,12 @@ export type GenAiAssertion = ManifestAssertion | LegacyAssertion;
 
 export interface GenerativeInfo {
   assertion: GenAiAssertion;
+  action?: Action;
   type:
     | 'legacy'
     | 'trainedAlgorithmicMedia'
     | 'compositeWithTrainedAlgorithmicMedia';
-  softwareAgent: {
-    raw: string;
-    formatted: string;
-  };
+  softwareAgent: string;
 }
 
 /**
@@ -51,40 +53,52 @@ export interface GenerativeInfo {
  * @param manifest - Manifest to derive data from
  */
 export function selectGenerativeInfo(manifest: Manifest): GenerativeInfo[] {
-  return manifest.assertions.data
-    .filter((assertion: GenAiAssertion) => {
-      return (
-        // Check for legacy assertion
-        assertion.label === 'com.adobe.generative-ai' ||
-        // Check for actions v1 assertion
-        (assertion.label === 'c2pa.actions' &&
-          assertion.data.actions.some((action: any) =>
-            genAiDigitalSourceTypes.includes(action.digitalSourceType),
-          ))
-      );
-    })
-    .map((assertion: GenAiAssertion) => {
+  return manifest.assertions.data.reduce<GenerativeInfo[]>(
+    (acc, assertion: Assertion<any, any>) => {
+      // Check for legacy assertion
       if (assertion.label === 'com.adobe.generative-ai') {
         const { description, version } = (assertion as LegacyAssertion).data;
         const softwareAgent = [description, version]
           .map((x) => x.trim())
           .join(' ');
-        return {
-          assertion,
-          type: 'legacy',
-          softwareAgent: {
-            raw: softwareAgent,
-            formatted: softwareAgent,
+        return [
+          ...acc,
+          {
+            assertion,
+            type: 'legacy',
+            softwareAgent: softwareAgent,
           },
-        };
+        ];
       }
 
-      // Not generative AI, this is an Actions V1 assertion
-      const { actions } = (assertion as C2paActionsAssertion).data;
-      const genAiActions = actions.filter((action: any) =>
-        genAiDigitalSourceTypes.includes(action.digitalSourceType),
-      );
-      console.log('genAiActions', genAiActions);
-      // const type =
-    });
+      // Check for actions v1 assertion
+      if (assertion.label === 'c2pa.actions') {
+        const { actions } = (assertion as C2paActionsAssertion).data;
+        const genAiActions: GenerativeInfo[] = actions.reduce<GenerativeInfo[]>(
+          (actionAcc, action: Action) => {
+            const { digitalSourceType } = action;
+            if (
+              digitalSourceType &&
+              genAiDigitalSourceTypes.includes(digitalSourceType)
+            ) {
+              actionAcc.push({
+                assertion,
+                action: action,
+                type: formatGenAiDigitalSourceTypes(digitalSourceType),
+                softwareAgent: action.softwareAgent,
+              } as GenerativeInfo);
+            }
+
+            return actionAcc;
+          },
+          [],
+        );
+
+        return [...acc, ...genAiActions];
+      }
+
+      return acc;
+    },
+    [],
+  );
 }
