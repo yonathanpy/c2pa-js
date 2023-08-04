@@ -22,8 +22,8 @@ const genAiDigitalSourceTypes = [
   'https://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia',
 ];
 
-function formatGenAiDigitalSourceTypes(type: string | undefined) {
-  return type?.substring(type.lastIndexOf('/') + 1);
+function formatGenAiDigitalSourceTypes(type: string) {
+  return type.substring(type.lastIndexOf('/') + 1);
 }
 
 export type LegacyAssertion = Assertion<
