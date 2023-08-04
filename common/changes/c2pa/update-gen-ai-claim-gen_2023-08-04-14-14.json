@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "c2pa",
+      "comment": "Adds functionality to handle v1 assertions (trained and composite media) while still being compatible with legacy assertions",
+      "type": "minor"
+    }
+  ],
+  "packageName": "c2pa"
+}
