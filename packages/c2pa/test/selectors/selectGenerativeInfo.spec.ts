@@ -1,12 +1,4 @@
-import type {
-  Action,
-  Assertion,
-  C2paActionsAssertion,
-  ManifestAssertion,
-} from '@contentauth/toolkit';
 import { C2pa, createC2pa, selectGenerativeInfo } from '../../';
-import { GenerativeInfo } from '../../dist/src/selectors/selectGenerativeInfo';
-import { genFillResults } from './genFillResult';
 
 interface TestContext {
   c2pa: C2pa;
@@ -21,7 +13,7 @@ describe('selectGenerativeInfo', function () {
       });
     });
 
-    fit('should find gen AI assertions using v1 actions', async function (this: TestContext) {
+    it('should find gen AI assertions using v1 actions', async function (this: TestContext) {
       const result = await this.c2pa.read(
         './node_modules/@contentauth/testing/fixtures/images/gen-fill.jpg',
       );
@@ -29,7 +21,6 @@ describe('selectGenerativeInfo', function () {
       expect(manifest).not.toBeNull();
       if (manifest) {
         const genAssertions = selectGenerativeInfo(manifest);
-        console.log('genAssertions', genAssertions);
         expect(genAssertions).toEqual([
           {
             assertion: { label: 'c2pa.actions', data: jasmine.any(Object) },
@@ -73,55 +64,55 @@ describe('selectGenerativeInfo', function () {
         ]);
       }
     });
-    //use toEuqal
-    // test('should detect if a file has a gen AI assertion using v1 actions (trained)', async () => {
-    //   const asset: FileAsset = {
-    //     path: resolve('tests/fixtures/gen-fill'),
-    //     mimeType: 'image/jpeg',
-    //   };
-    //   const result = await c2pa.readFileWithoutExtension(asset);
-    //   expect(result).not.toBeNull();
-    //   if (result) {
-    //     const hasGenAi = c2pa.hasGenAiAssertion(result);
-    //     expect(hasGenAi).toEqual(true);
-    //   }
-    // });
 
-    // test('should detect if a file has a gen AI assertion using v1 actions (composite)', async () => {
-    //   const asset: FileAsset = {
-    //     path: resolve('tests/fixtures/composite-dst.jpg'),
-    //     mimeType: 'image/jpeg',
-    //   };
-    //   const result = await c2pa.read(asset);
-    //   expect(result).not.toBeNull();
-    //   if (result) {
-    //     const hasGenAi = c2pa.hasGenAiAssertion(result);
-    //     expect(hasGenAi).toEqual(true);
-    //   }
-    // });
+    it('should detect if a file has a gen AI assertion using v1 actions (trained)', async function (this: TestContext) {
+      const result = await this.c2pa.read(
+        './node_modules/@contentauth/testing/fixtures/images/gen-fill.jpg',
+      );
+      const manifest = result.manifestStore?.activeManifest;
+      expect(manifest).not.toBeNull();
+      if (manifest) {
+        const genAssertions = selectGenerativeInfo(manifest);
+        expect(genAssertions[0].type).toEqual('trainedAlgorithmicMedia');
+      }
+    });
 
-    // test('should detect if a file has a gen AI assertion using a legacy assertion', async () => {
-    //   const asset: FileAsset = {
-    //     path: resolve('tests/fixtures/firefly.jpg'),
-    //   };
-    //   const result = await c2pa.read(asset);
-    //   expect(result).not.toBeNull();
-    //   if (result) {
-    //     const hasGenAi = c2pa.hasGenAiAssertion(result);
-    //     expect(hasGenAi).toEqual(true);
-    //   }
-    // });
+    it('should detect if a file has a gen AI assertion using v1 actions (composite))', async function (this: TestContext) {
+      const result = await this.c2pa.read(
+        './node_modules/@contentauth/testing/fixtures/images/composite-dst.jpg',
+      );
+      const manifest = result.manifestStore?.activeManifest;
+      expect(manifest).not.toBeNull();
+      if (manifest) {
+        const genAssertions = selectGenerativeInfo(manifest);
+        expect(genAssertions[0].type).toEqual(
+          'compositeWithTrainedAlgorithmicMedia',
+        );
+      }
+    });
 
-    // test('should detect if a file does not have a gen AI assertion', async () => {
-    //   const asset: FileAsset = {
-    //     path: resolve('tests/fixtures/CAICAI.jpg'),
-    //   };
-    //   const result = await c2pa.read(asset);
-    //   expect(result).not.toBeNull();
-    //   if (result) {
-    //     const hasGenAi = c2pa.hasGenAiAssertion(result);
-    //     expect(hasGenAi).toEqual(false);
-    //   }
-    // });
+    it('should detect if a file has a gen AI assertion using a legacy assertion', async function (this: TestContext) {
+      const result = await this.c2pa.read(
+        './node_modules/@contentauth/testing/fixtures/images/firefly-1.jpg',
+      );
+      const manifest = result.manifestStore?.activeManifest;
+      expect(manifest).not.toBeNull();
+      if (manifest) {
+        const genAssertions = selectGenerativeInfo(manifest);
+        expect(genAssertions[0].type).toEqual('legacy');
+      }
+    });
+
+    it('should detect if a file does not have a gen AI assertion', async function (this: TestContext) {
+      const result = await this.c2pa.read(
+        './node_modules/@contentauth/testing/fixtures/images/cloud.jpg',
+      );
+      const manifest = result.manifestStore?.activeManifest;
+      expect(manifest).not.toBeNull();
+      if (manifest) {
+        const genAssertions = selectGenerativeInfo(manifest);
+        expect(genAssertions).toEqual([]);
+      }
+    });
   });
 });
