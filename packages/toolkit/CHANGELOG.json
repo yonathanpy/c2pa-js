@@ -2,6 +2,42 @@
   "name": "@contentauth/toolkit",
   "entries": [
     {
+      "version": "0.10.2",
+      "tag": "@contentauth/toolkit_v0.10.2",
+      "date": "Thu, 14 Sep 2023 11:56:56 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update to c2pa-rs 0.26.0"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.10.1",
+      "tag": "@contentauth/toolkit_v0.10.1",
+      "date": "Wed, 19 Jul 2023 20:42:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update c2pa-rs to 0.25.1, fix i128 serialization issue in Wasm"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.10.0",
+      "tag": "@contentauth/toolkit_v0.10.0",
+      "date": "Wed, 14 Jun 2023 15:36:00 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Update c2pa-rs to 0.23.1"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.9.10",
       "tag": "@contentauth/toolkit_v0.9.10",
       "date": "Wed, 22 Mar 2023 18:52:56 GMT",

@@ -45,7 +45,8 @@ export function getManifestStoreFromFragment(
 
 export function getManifestStoreFromManifestAndAsset(
     manifestBuffer: ArrayBuffer,
-    assetBuffer: ArrayBuffer
+    assetBuffer: ArrayBuffer,
+    mimeType: string
 ): Promise<ManifestStore>;
 "#;
 
@@ -123,6 +124,7 @@ pub async fn get_manifest_store_from_fragment(
 pub async fn get_manifest_store_from_manifest_and_asset(
     manifest_buffer: JsValue,
     asset_buffer: JsValue,
+    mime_type: String,
 ) -> Result<JsValue, JsSysError> {
     log_time("get_manifest_store_data_from_manifest_and_asset::start");
     let manifest: serde_bytes::ByteBuf = serde_wasm_bindgen::from_value(manifest_buffer)
@@ -134,9 +136,10 @@ pub async fn get_manifest_store_from_manifest_and_asset(
         .map_err(as_js_error)?;
 
     log_time("get_manifest_store_data_from_manifest_and_asset::from_bytes");
-    let result = get_manifest_store_data_from_manifest_and_asset_bytes(&manifest, &asset)
-        .await
-        .map_err(as_js_error)?;
+    let result =
+        get_manifest_store_data_from_manifest_and_asset_bytes(&manifest, &mime_type, &asset)
+            .await
+            .map_err(as_js_error)?;
 
     let serializer = Serializer::new().serialize_maps_as_objects(true);
     let js_value = result

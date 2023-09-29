@@ -2,6 +2,98 @@
   "name": "c2pa-wc",
   "entries": [
     {
+      "version": "0.11.9",
+      "tag": "c2pa-wc_v0.11.9",
+      "date": "Tue, 26 Sep 2023 18:33:54 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update icons"
+          },
+          {
+            "comment": "Correct generative info display"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"c2pa\" to `0.17.3`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.11.8",
+      "tag": "c2pa-wc_v0.11.8",
+      "date": "Thu, 14 Sep 2023 11:56:56 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"c2pa\" to `0.17.2`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.11.7",
+      "tag": "c2pa-wc_v0.11.7",
+      "date": "Fri, 04 Aug 2023 17:01:16 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"c2pa\" to `0.17.1`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.11.6",
+      "tag": "c2pa-wc_v0.11.6",
+      "date": "Fri, 04 Aug 2023 15:51:55 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"c2pa\" to `0.17.0`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.11.5",
+      "tag": "c2pa-wc_v0.11.5",
+      "date": "Wed, 19 Jul 2023 20:42:52 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"c2pa\" to `0.16.2`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.11.4",
+      "tag": "c2pa-wc_v0.11.4",
+      "date": "Wed, 14 Jun 2023 16:47:50 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"c2pa\" to `0.16.1`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.11.3",
+      "tag": "c2pa-wc_v0.11.3",
+      "date": "Wed, 14 Jun 2023 15:36:00 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"c2pa\" to `0.16.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.11.2",
       "tag": "c2pa-wc_v0.11.2",
       "date": "Wed, 19 Apr 2023 15:34:21 GMT",

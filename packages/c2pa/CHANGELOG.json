@@ -2,6 +2,100 @@
   "name": "c2pa",
   "entries": [
     {
+      "version": "0.17.3",
+      "tag": "c2pa_v0.17.3",
+      "date": "Tue, 26 Sep 2023 18:33:54 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Correct generative info display"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.17.2",
+      "tag": "c2pa_v0.17.2",
+      "date": "Thu, 14 Sep 2023 11:56:56 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add support for serde arbitrary values, additional file types, fix generative parsing bug"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@contentauth/toolkit\" to `0.10.2`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.17.1",
+      "tag": "c2pa_v0.17.1",
+      "date": "Fri, 04 Aug 2023 17:01:16 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "exporting the generativeInfo type"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.17.0",
+      "tag": "c2pa_v0.17.0",
+      "date": "Fri, 04 Aug 2023 15:51:55 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Adds functionality to handle v1 assertions (trained and composite media) while still being compatible with legacy assertions"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.16.2",
+      "tag": "c2pa_v0.16.2",
+      "date": "Wed, 19 Jul 2023 20:42:52 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@contentauth/toolkit\" to `0.10.1`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.16.1",
+      "tag": "c2pa_v0.16.1",
+      "date": "Wed, 14 Jun 2023 16:47:50 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fixed TypeScript for ExtendedAssertions functionality"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.16.0",
+      "tag": "c2pa_v0.16.0",
+      "date": "Wed, 14 Jun 2023 15:36:00 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Update calls to work with changes in c2pa-rs 0.23.1"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@contentauth/toolkit\" to `0.10.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.15.0",
       "tag": "c2pa_v0.15.0",
       "date": "Fri, 31 Mar 2023 18:34:40 GMT",

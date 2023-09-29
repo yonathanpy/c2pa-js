@@ -11,6 +11,7 @@ import { ToolkitError } from '@contentauth/toolkit';
 import debug from 'debug';
 import { ensureCompatibility } from './lib/browser';
 import { Downloader, DownloaderOptions } from './lib/downloader';
+import { InvalidInputError } from './lib/error';
 import { WorkerPoolConfig } from './lib/pool/workerPool';
 import { SdkWorkerPool, createPoolWrapper } from './lib/poolWrapper';
 import { fetchWasm } from './lib/wasm';
@@ -314,14 +315,18 @@ async function fetchRemoteManifest(
     const url = new URL(manifestUrl);
     dbg('Fetching remote manifest from', url);
 
+    if (!source.blob) {
+      dbg('No blob found on source, skipping remote manifest loading', source);
+      throw new InvalidInputError();
+    }
+
     const manifestBytes = await fetch(url.toString());
     const manifestBlob = await manifestBytes.blob();
     const manifestBuffer = await manifestBlob.arrayBuffer();
-    const sourceBuffer = await source.arrayBuffer();
     const result = await pool.getReportFromAssetAndManifestBuffer(
       wasm,
       manifestBuffer,
-      sourceBuffer,
+      source.blob,
     );
 
     return createManifestStore(result);

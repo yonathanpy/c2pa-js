@@ -1,6 +1,27 @@
 # Change Log - @contentauth/toolkit
 
-This log was last generated on Wed, 22 Mar 2023 18:52:56 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Sep 2023 11:56:56 GMT and should not be manually modified.
+
+## 0.10.2
+Thu, 14 Sep 2023 11:56:56 GMT
+
+### Patches
+
+- Update to c2pa-rs 0.26.0
+
+## 0.10.1
+Wed, 19 Jul 2023 20:42:52 GMT
+
+### Patches
+
+- Update c2pa-rs to 0.25.1, fix i128 serialization issue in Wasm
+
+## 0.10.0
+Wed, 14 Jun 2023 15:36:00 GMT
+
+### Minor changes
+
+- Update c2pa-rs to 0.23.1
 
 ## 0.9.10
 Wed, 22 Mar 2023 18:52:56 GMT

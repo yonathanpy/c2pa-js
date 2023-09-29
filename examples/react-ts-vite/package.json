@@ -8,9 +8,9 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@contentauth/react": "workspace:0.2.28-fmp4-alpha.2",
-    "c2pa": "workspace:0.16.0-fmp4-alpha.2",
-    "c2pa-wc": "workspace:0.11.3-fmp4-alpha.2",
+    "@contentauth/react": "workspace:*",
+    "c2pa": "workspace:*",
+    "c2pa-wc": "workspace:*",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

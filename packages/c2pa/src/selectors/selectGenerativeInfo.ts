@@ -7,44 +7,102 @@
  * it.
  */
 
+import type {
+  ActionV1,
+  Assertion,
+  C2paActionsAssertion,
+  ManifestAssertion,
+} from '@contentauth/toolkit';
 import type { Manifest } from '../manifest';
 
-declare module '../../index' {
-  interface ExtendedAssertions {
-    'com.adobe.generative-ai': {
-      description: string;
-      version: string;
-      prompt?: string;
-    };
-  }
+const genAiDigitalSourceTypes = [
+  'http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+  'https://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+  'http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia',
+  'https://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia',
+];
+
+function formatGenAiDigitalSourceTypes(type: string) {
+  return type.substring(type.lastIndexOf('/') + 1);
 }
 
+export type LegacyAssertion = Assertion<
+  'com.adobe.generative-ai',
+  {
+    description: string;
+    version: string;
+    prompt?: string;
+  }
+>;
+
+export type GenAiAssertion = ManifestAssertion | LegacyAssertion;
+
 export interface GenerativeInfo {
-  modelName: string;
-  modelVersion: string;
-  prompt?: string;
+  assertion: GenAiAssertion;
+  action?: ActionV1;
+  type:
+    | 'legacy'
+    | 'trainedAlgorithmicMedia'
+    | 'compositeWithTrainedAlgorithmicMedia';
+  softwareAgent: string;
 }
 
 /**
  * Gets any generative AI information from the manifest.
  *
- * **Note:** The current setup is temporary and will be replaced/combined with a standardized
- * selector that is in the C2PA spec.
- *
  * @param manifest - Manifest to derive data from
  */
 export function selectGenerativeInfo(
   manifest: Manifest,
-): GenerativeInfo | null {
-  const [genAiAssertion] = manifest.assertions.get('com.adobe.generative-ai');
+): GenerativeInfo[] | null {
+  const data = manifest.assertions.data.reduce<GenerativeInfo[]>(
+    (acc, assertion: Assertion<any, any>) => {
+      // Check for legacy assertion
+      if (assertion.label === 'com.adobe.generative-ai') {
+        const { description, version } = (assertion as LegacyAssertion).data;
+        const softwareAgent = [description, version]
+          .map((x) => x?.trim() ?? '')
+          .join(' ');
+        return [
+          ...acc,
+          {
+            assertion,
+            type: 'legacy',
+            softwareAgent: softwareAgent,
+          },
+        ];
+      }
 
-  if (!genAiAssertion) {
-    return null;
-  }
+      // Check for actions v1 assertion
+      if (assertion.label === 'c2pa.actions') {
+        const { actions } = (assertion as C2paActionsAssertion).data;
+        const genAiActions: GenerativeInfo[] = actions.reduce<GenerativeInfo[]>(
+          (actionAcc, action: ActionV1) => {
+            const { digitalSourceType } = action;
+            if (
+              digitalSourceType &&
+              genAiDigitalSourceTypes.includes(digitalSourceType)
+            ) {
+              actionAcc.push({
+                assertion,
+                action: action,
+                type: formatGenAiDigitalSourceTypes(digitalSourceType),
+                softwareAgent: action.softwareAgent,
+              } as GenerativeInfo);
+            }
 
-  return {
-    modelName: genAiAssertion.data.description,
-    modelVersion: genAiAssertion.data.version,
-    prompt: genAiAssertion.data.prompt,
-  };
+            return actionAcc;
+          },
+          [],
+        );
+
+        return [...acc, ...genAiActions];
+      }
+
+      return acc;
+    },
+    [],
+  );
+
+  return data.length ? data : null;
 }

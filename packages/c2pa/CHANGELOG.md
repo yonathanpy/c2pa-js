@@ -1,6 +1,53 @@
 # Change Log - c2pa
 
-This log was last generated on Fri, 31 Mar 2023 18:34:40 GMT and should not be manually modified.
+This log was last generated on Tue, 26 Sep 2023 18:33:54 GMT and should not be manually modified.
+
+## 0.17.3
+Tue, 26 Sep 2023 18:33:54 GMT
+
+### Patches
+
+- Correct generative info display
+
+## 0.17.2
+Thu, 14 Sep 2023 11:56:56 GMT
+
+### Patches
+
+- Add support for serde arbitrary values, additional file types, fix generative parsing bug
+
+## 0.17.1
+Fri, 04 Aug 2023 17:01:16 GMT
+
+### Patches
+
+- exporting the generativeInfo type
+
+## 0.17.0
+Fri, 04 Aug 2023 15:51:55 GMT
+
+### Minor changes
+
+- Adds functionality to handle v1 assertions (trained and composite media) while still being compatible with legacy assertions
+
+## 0.16.2
+Wed, 19 Jul 2023 20:42:52 GMT
+
+_Version update only_
+
+## 0.16.1
+Wed, 14 Jun 2023 16:47:50 GMT
+
+### Patches
+
+- Fixed TypeScript for ExtendedAssertions functionality
+
+## 0.16.0
+Wed, 14 Jun 2023 15:36:00 GMT
+
+### Minor changes
+
+- Update calls to work with changes in c2pa-rs 0.23.1
 
 ## 0.15.0
 Fri, 31 Mar 2023 18:34:40 GMT

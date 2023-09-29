@@ -50,10 +50,15 @@ const worker = {
   async getReportFromAssetAndManifestBuffer(
     wasm: WebAssembly.Module,
     manifestBuffer: ArrayBuffer,
-    assetBuffer: ArrayBuffer,
+    asset: Blob,
   ) {
     await initToolkit(wasm);
-    return getManifestStoreFromManifestAndAsset(manifestBuffer, assetBuffer);
+    const assetBuffer = await asset.arrayBuffer();
+    return getManifestStoreFromManifestAndAsset(
+      manifestBuffer,
+      assetBuffer,
+      asset.type,
+    );
   },
   async scanInput(
     wasm: WebAssembly.Module,
