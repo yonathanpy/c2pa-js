@@ -1,6 +1,6 @@
 {
   "name": "c2pa-wc",
-  "version": "0.11.10-fmp4-alpha.0",
+  "version": "0.11.10-fmp4-alpha.1",
   "contributors": [
     {
       "name": "Dave Kozma",
@@ -36,7 +36,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "c2pa": "workspace:0.18.0-fmp4-alpha.0",
+    "c2pa": "workspace:0.18.0-fmp4-alpha.1",
     "date-fns": "^2.24.0",
     "fast-deep-equal": "^3.1.3",
     "lit": "^2.0.2",
