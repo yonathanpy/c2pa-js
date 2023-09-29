@@ -15,7 +15,7 @@
     "typescript": "~4.6.3"
   },
   "dependencies": {
-    "c2pa": "workspace:0.18.0-fmp4-alpha.0"
+    "c2pa": "workspace:0.18.0-fmp4-alpha.1"
   },
   "scripts": {
     "build": "rollup -c",
