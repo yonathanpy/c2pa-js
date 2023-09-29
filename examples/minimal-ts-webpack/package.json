@@ -16,6 +16,6 @@
     "webpack-dev-server": "^4.8.1"
   },
   "dependencies": {
-    "c2pa": "workspace:0.18.0-fmp4-alpha.1"
+    "c2pa": "workspace:0.18.0-fmp4-alpha.0"
   }
 }
