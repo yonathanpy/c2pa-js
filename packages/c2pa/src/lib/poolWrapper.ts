@@ -42,6 +42,8 @@ export async function createPoolWrapper(
     getReport: async (...args) => workerPool.execute('getReport', args),
     getReportFromAssetAndManifestBuffer: async (...args) =>
       workerPool.execute('getReportFromAssetAndManifestBuffer', args),
+    getDetailedInfo: async (...args) =>
+      workerPool.execute('getDetailedInfo', args),
     scanInput: async (...args) => workerPool.execute('scanInput', args),
   };
 

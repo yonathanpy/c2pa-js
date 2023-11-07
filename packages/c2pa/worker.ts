@@ -15,10 +15,12 @@ import {
 } from '@contentauth/detector';
 import {
   ManifestStore,
+  getDetailedInfoAsCbor,
   getManifestStoreFromArrayBuffer,
   getManifestStoreFromManifestAndAsset,
   default as initToolkit,
 } from '@contentauth/toolkit';
+import { decode } from 'cbor-x';
 
 export interface IScanResult {
   found: boolean;
@@ -49,6 +51,18 @@ const worker = {
       assetBuffer,
       asset.type,
     );
+  },
+  async getDetailedInfo(
+    wasm: WebAssembly.Module,
+    buffer: ArrayBuffer,
+    type: string,
+  ): Promise<any> {
+    await initToolkit(wasm);
+    const result = await getDetailedInfoAsCbor(buffer, type);
+    if (result.mime_type === 'application/cbor') {
+      return decode(result.data);
+    }
+    return null;
   },
   async scanInput(
     wasm: WebAssembly.Module,

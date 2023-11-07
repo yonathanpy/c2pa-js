@@ -107,6 +107,8 @@ export interface C2pa {
    */
   readAll(inputs: C2paSourceType[]): Promise<C2paReadResult[]>;
 
+  getDetailedInfo(input: C2paSourceType): Promise<any>;
+
   /**
    * Disposer function to clean up the underlying worker pool and any other disposable resources
    */
@@ -194,9 +196,30 @@ export async function createC2pa(config: C2paConfig): Promise<C2pa> {
   const readAll: C2pa['readAll'] = async (inputs) =>
     Promise.all(inputs.map((input) => read(input)));
 
+  const getDetailedInfo: C2pa['getDetailedInfo'] = async (input) => {
+    const jobId = ++jobCounter;
+
+    dbgTask('[%s] Reading from input', jobId, input);
+
+    const source = await createSource(downloader, input);
+
+    dbgTask('[%s] Processing input', jobId, input);
+
+    const buffer = await source.arrayBuffer();
+
+    try {
+      const result = await pool.getDetailedInfo(wasm, buffer, source.type);
+
+      return result;
+    } catch (err: any) {
+      dbgTask('[%s] Error in getDetailedInfo', jobId, err);
+    }
+  };
+
   return {
     read,
     readAll,
+    getDetailedInfo,
     dispose: () => pool.dispose(),
   };
 }

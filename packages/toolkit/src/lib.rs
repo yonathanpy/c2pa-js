@@ -7,6 +7,7 @@
 
 // See https://github.com/rustwasm/wasm-bindgen/issues/2774
 #![allow(clippy::unused_unit)]
+use ciborium::into_writer as cbor_into_writer;
 use log::Level;
 use serde::Serialize;
 use serde_wasm_bindgen::Serializer;
@@ -15,6 +16,7 @@ use wasm_bindgen::prelude::*;
 
 mod error;
 mod manifest_store;
+mod store;
 mod util;
 
 use error::Error;
@@ -23,6 +25,7 @@ use js_sys::Reflect;
 use manifest_store::{
     get_manifest_store_data, get_manifest_store_data_from_manifest_and_asset_bytes,
 };
+use store::get_detailed_info;
 use util::log_time;
 
 #[wasm_bindgen(typescript_custom_section)]
@@ -41,6 +44,16 @@ export function getManifestStoreFromManifestAndAsset(
     assetBuffer: ArrayBuffer,
     mimeType: string
 ): Promise<ManifestStore>;
+
+export interface BinaryData {
+    mime_type: string,
+    data: ArrayBuffer
+}
+
+export function getDetailedInfoAsCbor(
+    buf: ArrayBuffer,
+    mimeType: string
+): Promise<BinaryData>;
 "#;
 
 #[wasm_bindgen(start)]
@@ -116,6 +129,39 @@ pub async fn get_manifest_store_from_manifest_and_asset(
         .map_err(|_err| Error::JavaScriptConversion)
         .map_err(as_js_error)?;
     log_time("get_manifest_store_data_from_manifest_and_asset::javascript_conversion");
+
+    Ok(js_value)
+}
+
+#[derive(Serialize)]
+struct BinaryData {
+    mime_type: String,
+    #[serde(with = "serde_bytes")]
+    data: Vec<u8>,
+}
+
+#[wasm_bindgen(js_name = getDetailedInfoAsCbor, skip_typescript)]
+pub async fn get_detailed_info_as_cbor(
+    buf: JsValue,
+    mime_type: String,
+) -> Result<JsValue, JsSysError> {
+    let asset: serde_bytes::ByteBuf = serde_wasm_bindgen::from_value(buf)
+        .map_err(Error::SerdeInput)
+        .map_err(as_js_error)?;
+    let result = get_detailed_info(&asset, &mime_type)
+        .await
+        .map_err(as_js_error)?;
+    let mut cbor_data = Vec::new();
+    let _ = cbor_into_writer(&result, &mut cbor_data);
+    let info = BinaryData {
+        mime_type: String::from("application/cbor"),
+        data: cbor_data,
+    };
+    let serializer = Serializer::new().serialize_maps_as_objects(true);
+    let js_value = info
+        .serialize(&serializer)
+        .map_err(|_err| Error::JavaScriptConversion)
+        .map_err(as_js_error)?;
 
     Ok(js_value)
 }
