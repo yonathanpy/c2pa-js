@@ -2,6 +2,18 @@
   "name": "c2pa",
   "entries": [
     {
+      "version": "0.22.0",
+      "tag": "c2pa_v0.22.0",
+      "date": "Thu, 20 Jun 2024 22:18:18 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Expose `createManifestStore`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.21.1",
       "tag": "c2pa_v0.21.1",
       "date": "Wed, 19 Jun 2024 16:57:37 GMT",
