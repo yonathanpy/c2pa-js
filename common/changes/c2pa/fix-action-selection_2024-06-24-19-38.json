@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "c2pa",
+      "comment": "Fix action selection with multi-part action names",
+      "type": "patch"
+    }
+  ],
+  "packageName": "c2pa"
+}
