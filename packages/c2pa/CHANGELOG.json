@@ -2,6 +2,18 @@
   "name": "c2pa",
   "entries": [
     {
+      "version": "0.22.1",
+      "tag": "c2pa_v0.22.1",
+      "date": "Mon, 24 Jun 2024 20:54:46 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix action selection with multi-part action names"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.22.0",
       "tag": "c2pa_v0.22.0",
       "date": "Thu, 20 Jun 2024 22:18:18 GMT",
