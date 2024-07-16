@@ -2,6 +2,18 @@
   "name": "c2pa",
   "entries": [
     {
+      "version": "0.22.3",
+      "tag": "c2pa_v0.22.3",
+      "date": "Tue, 16 Jul 2024 15:36:02 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update translations"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.22.2",
       "tag": "c2pa_v0.22.2",
       "date": "Mon, 15 Jul 2024 20:21:36 GMT",

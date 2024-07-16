@@ -2,6 +2,27 @@
   "name": "@contentauth/react",
   "entries": [
     {
+      "version": "0.2.56",
+      "tag": "@contentauth/react_v0.2.56",
+      "date": "Tue, 16 Jul 2024 15:36:02 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"c2pa\" to `0.22.3`"
+          },
+          {
+            "comment": "Updating dependency \"c2pa-wc\" to `0.13.6`"
+          },
+          {
+            "comment": "Updating dependency \"c2pa\" from `^0.22.2` to `^0.22.3`"
+          },
+          {
+            "comment": "Updating dependency \"c2pa-wc\" from `^0.13.5` to `^0.13.6`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.55",
       "tag": "@contentauth/react_v0.2.55",
       "date": "Mon, 15 Jul 2024 20:21:36 GMT",
