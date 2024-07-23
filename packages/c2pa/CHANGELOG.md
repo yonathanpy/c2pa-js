@@ -1,6 +1,13 @@
 # Change Log - c2pa
 
-This log was last generated on Tue, 23 Jul 2024 15:13:27 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Jul 2024 15:58:41 GMT and should not be manually modified.
+
+## 0.22.6
+Tue, 23 Jul 2024 15:58:41 GMT
+
+### Patches
+
+- Add icon for `c2pa.watermarked`
 
 ## 0.22.5
 Tue, 23 Jul 2024 15:13:27 GMT

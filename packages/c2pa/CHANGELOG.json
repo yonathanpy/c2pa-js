@@ -2,6 +2,18 @@
   "name": "c2pa",
   "entries": [
     {
+      "version": "0.22.6",
+      "tag": "c2pa_v0.22.6",
+      "date": "Tue, 23 Jul 2024 15:58:41 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add icon for `c2pa.watermarked`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.22.5",
       "tag": "c2pa_v0.22.5",
       "date": "Tue, 23 Jul 2024 15:13:27 GMT",
