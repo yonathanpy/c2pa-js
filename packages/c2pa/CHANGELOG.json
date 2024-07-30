@@ -2,6 +2,18 @@
   "name": "c2pa",
   "entries": [
     {
+      "version": "0.23.1",
+      "tag": "c2pa_v0.23.1",
+      "date": "Tue, 30 Jul 2024 21:39:10 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add `id_ID` and `vi_VN` to translations index"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.23.0",
       "tag": "c2pa_v0.23.0",
       "date": "Tue, 30 Jul 2024 00:37:40 GMT",
