@@ -1,6 +1,13 @@
 # Change Log - c2pa
 
-This log was last generated on Tue, 23 Jul 2024 15:58:41 GMT and should not be manually modified.
+This log was last generated on Tue, 30 Jul 2024 00:37:40 GMT and should not be manually modified.
+
+## 0.23.0
+Tue, 30 Jul 2024 00:37:40 GMT
+
+### Minor changes
+
+- Add support for ingredient `data_types` field
 
 ## 0.22.6
 Tue, 23 Jul 2024 15:58:41 GMT
