@@ -25,6 +25,12 @@ jobs:
           curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
       - name: Install project dependencies
         run: rush install
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+
       - name: Build packages
         run: rush build:release --only tag:production --only tag:tooling
       - name: Lint packages
