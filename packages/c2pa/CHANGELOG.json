@@ -2,6 +2,18 @@
   "name": "c2pa",
   "entries": [
     {
+      "version": "0.24.0",
+      "tag": "c2pa_v0.24.0",
+      "date": "Tue, 20 Aug 2024 14:09:04 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add `label` field to `Manifest` object"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.23.2",
       "tag": "c2pa_v0.23.2",
       "date": "Mon, 19 Aug 2024 17:03:27 GMT",
