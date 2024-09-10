@@ -2,6 +2,18 @@
   "name": "c2pa",
   "entries": [
     {
+      "version": "0.24.1",
+      "tag": "c2pa_v0.24.1",
+      "date": "Tue, 10 Sep 2024 19:21:30 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix generative info display"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.24.0",
       "tag": "c2pa_v0.24.0",
       "date": "Tue, 20 Aug 2024 14:09:04 GMT",

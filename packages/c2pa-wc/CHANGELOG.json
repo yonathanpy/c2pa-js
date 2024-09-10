@@ -2,6 +2,23 @@
   "name": "c2pa-wc",
   "entries": [
     {
+      "version": "0.13.14",
+      "tag": "c2pa-wc_v0.13.14",
+      "date": "Tue, 10 Sep 2024 19:21:30 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix generative info display"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"c2pa\" to `0.24.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.13",
       "tag": "c2pa-wc_v0.13.13",
       "date": "Tue, 20 Aug 2024 14:09:04 GMT",
